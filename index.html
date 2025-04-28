@@ -73,18 +73,18 @@ document.addEventListener('DOMContentLoaded', function() {
   let menuData = {};
   let imageMapping = {};
 
-// 외부 JSON 파일 불러오기
-Promise.all([
-  fetch('https://raw.githubusercontent.com/shinil7607/v8max/main/assets/menuData.json').then(response => response.json()),
-  fetch('https://raw.githubusercontent.com/shinil7607/v8max/main/assets/imageMapping.json').then(response => response.json())
-]).then(([menuResult, imageResult]) => {
-  menuData = menuResult;
-  imageMapping = imageResult;
-  // 메뉴 레벨1 변경 이벤트, 2, 3 등에 대한 로직을 여기서 처리할 수 있습니다.
-}).catch(error => {
-  console.error('데이터 로딩 실패:', error);
-});
-
+  // 외부 JSON 파일 불러오기
+  Promise.all([
+    fetch('https://raw.githubusercontent.com/shinil7607/v8max/main/assets/menuData.json').then(response => response.json()),
+    fetch('https://raw.githubusercontent.com/shinil7607/v8max/main/assets/imageMapping.json').then(response => response.json())
+  ]).then(([menuResult, imageResult]) => {
+    menuData = menuResult;
+    imageMapping = imageResult;
+    console.log('Menu Data:', menuData);  // 메뉴 데이터 출력
+    console.log('Image Mapping:', imageMapping);  // 이미지 맵핑 데이터 출력
+  }).catch(error => {
+    console.error('데이터 로딩 실패:', error);
+  });
 
   // 메뉴 레벨1 변경 이벤트
   menuLevel1.addEventListener('change', function() {
@@ -152,6 +152,7 @@ Promise.all([
     printWindow.print();
   }
 });
+
 </script>
 
 
