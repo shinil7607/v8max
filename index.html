@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // 외부 JSON 파일 불러오기
   Promise.all([
-    fetch('/assets/menuData.json').then(response => response.json()),
+    fetch('https://raw.githubusercontent.com/shinil7607/v8max/main/assets/menuData.json').then(response => response.json()),
     fetch('/assets/imageMapping.json').then(response => response.json())
   ]).then(([menuResult, imageResult]) => {
     menuData = menuResult;
