@@ -64,106 +64,94 @@ height: 50px;
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', async function() {
-    const menuLevel1 = document.getElementById('menu-level1');
-    const menuLevel2 = document.getElementById('menu-level2');
-    const menuLevel3 = document.getElementById('menu-level3');
-    const imageContainer = document.querySelector('.image-container');
+document.addEventListener('DOMContentLoaded', function() {
+  const menuLevel1 = document.getElementById('menu-level1');
+  const menuLevel2 = document.getElementById('menu-level2');
+  const menuLevel3 = document.getElementById('menu-level3');
+  const imageContainer = document.querySelector('.image-container');
 
-    // External URLs for menu data and image mapping
-    const menuDataUrl = 'https://github.com/shinil7607/v8max/blob/main/menuData.json'; // Replace with actual URL
-    const imageMappingUrl = 'https://github.com/shinil7607/v8max/blob/main/imageMapping.json'; // Replace with actual URL
+  let menuData = {};
+  let imageMapping = {};
 
-    let menuData = {};
-    let imageMapping = {};
+  // 외부 JSON 파일 불러오기
+  Promise.all([
+    fetch('menuData.json').then(response => response.json()),
+    fetch('imageMapping.json').then(response => response.json())
+  ]).then(([menuResult, imageResult]) => {
+    menuData = menuResult;
+    imageMapping = imageResult;
+  }).catch(error => {
+    console.error('데이터 로딩 실패:', error);
+  });
 
-    // Fetch menu data and image mapping
-    try {
-      const [menuResponse, imageResponse] = await Promise.all([
-        fetch(menuDataUrl),
-        fetch(imageMappingUrl)
-      ]);
+  // 메뉴 레벨1 변경 이벤트
+  menuLevel1.addEventListener('change', function() {
+    const selectedMenu1 = this.value;
+    menuLevel2.innerHTML = '<option value="">선택</option>';
+    menuLevel3.innerHTML = '<option value="">세부 선택</option>';
+    imageContainer.innerHTML = '';
 
-      if (!menuResponse.ok || !imageResponse.ok) {
-        throw new Error('Failed to fetch data');
+    if (selectedMenu1 && menuData[selectedMenu1]) {
+      for (const submenu in menuData[selectedMenu1]) {
+        const option = document.createElement('option');
+        option.value = submenu;
+        option.textContent = submenu;
+        menuLevel2.appendChild(option);
       }
-
-      menuData = await menuResponse.json();
-      imageMapping = await imageResponse.json();
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      imageContainer.innerHTML = '<p>데이터를 불러오는 중 오류가 발생했습니다.</p>';
-      return;
-    }
-
-    // 레벨 1 메뉴 변경 이벤트 처리
-    menuLevel1.addEventListener('change', function() {
-      const selectedMenu1 = this.value;
-      menuLevel2.innerHTML = '<option value="">선택</option>';
-      menuLevel3.innerHTML = '<option value="">세부 선택</option>';
-      menuLevel3.style.display = '';
-      imageContainer.innerHTML = '';
-
-      if (selectedMenu1 && menuData[selectedMenu1]) {
-        for (const submenu in menuData[selectedMenu1]) {
-          const option = document.createElement('option');
-          option.value = submenu;
-          option.textContent = submenu;
-          menuLevel2.appendChild(option);
-        }
-        menuLevel2.style.display = 'inline-block';
-      } else {
-        menuLevel2.style.display = '';
-      }
-    });
-
-    // 레벨 2 메뉴 변경 이벤트 처리
-    menuLevel2.addEventListener('change', function() {
-      const selectedMenu1 = menuLevel1.value;
-      const selectedMenu2 = this.value;
-      menuLevel3.innerHTML = '<option value="">세부 선택</option>';
-      imageContainer.innerHTML = '';
-
-      if (selectedMenu1 && selectedMenu2 && menuData[selectedMenu1][selectedMenu2]) {
-        menuData[selectedMenu1][selectedMenu2].forEach(detailMenu => {
-          const option = document.createElement('option');
-          option.value = detailMenu;
-          option.textContent = detailMenu;
-          menuLevel3.appendChild(option);
-        });
-        menuLevel3.style.display = 'inline-block';
-      } else {
-        menuLevel3.style.display = '';
-      }
-    });
-
-    // 레벨 3 메뉴 변경 이벤트 처리 (이미지 표시)
-    menuLevel3.addEventListener('change', function() {
-      const selectedDetailMenu = this.value;
-      imageContainer.innerHTML = '';
-
-      if (selectedDetailMenu && imageMapping[selectedDetailMenu]) {
-        imageMapping[selectedDetailMenu].forEach(imageSrc => {
-          const img = document.createElement('img');
-          img.src = imageSrc;
-          img.alt = imageSrc;
-          img.addEventListener('click', printImage);
-          imageContainer.appendChild(img);
-        });
-      }
-    });
-
-    // 이미지를 인쇄하는 함수
-    function printImage(event) {
-      const printWindow = window.open('', '_blank');
-      printWindow.document.write('<html><head><title>인쇄</title></head><body>');
-      printWindow.document.write(`<img src="${event.target.src}" style="max-width: 30%; height: auto;">`);
-      printWindow.document.write('</body></html>');
-      printWindow.document.close();
-      printWindow.print();
+      menuLevel2.style.display = 'inline-block';
+    } else {
+      menuLevel2.style.display = '';
     }
   });
+
+  // 메뉴 레벨2 변경 이벤트
+  menuLevel2.addEventListener('change', function() {
+    const selectedMenu1 = menuLevel1.value;
+    const selectedMenu2 = this.value;
+    menuLevel3.innerHTML = '<option value="">세부 선택</option>';
+    imageContainer.innerHTML = '';
+
+    if (selectedMenu1 && selectedMenu2 && menuData[selectedMenu1][selectedMenu2]) {
+      menuData[selectedMenu1][selectedMenu2].forEach(detailMenu => {
+        const option = document.createElement('option');
+        option.value = detailMenu;
+        option.textContent = detailMenu;
+        menuLevel3.appendChild(option);
+      });
+      menuLevel3.style.display = 'inline-block';
+    } else {
+      menuLevel3.style.display = '';
+    }
+  });
+
+  // 메뉴 레벨3 변경 이벤트
+  menuLevel3.addEventListener('change', function() {
+    const selectedDetailMenu = this.value;
+    imageContainer.innerHTML = '';
+
+    if (selectedDetailMenu && imageMapping[selectedDetailMenu]) {
+      imageMapping[selectedDetailMenu].forEach(imageSrc => {
+        const img = document.createElement('img');
+        img.src = imageSrc;
+        img.alt = imageSrc;
+        img.addEventListener('click', printImage);
+        imageContainer.appendChild(img);
+      });
+    }
+  });
+
+  // 인쇄 함수
+  function printImage(event) {
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>인쇄</title></head><body>');
+    printWindow.document.write(`<img src="${event.target.src}" style="max-width: 30%; height: auto;">`);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
+  }
+});
 </script>
+
 
 </body>
 </html>
