@@ -1,5 +1,5 @@
 {
- '현대': [
+ "현대": [
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B100-0011.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0014.jpg',
@@ -18,7 +18,7 @@
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B751-0016.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B840-0012.jpg'
 	  ],
-      '기아': [
+      "기아": [
 	  'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B100-0011.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B120-0012.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B120-0014.jpg',
@@ -34,7 +34,7 @@
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B840-0010.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B840-0012.jpg'
 	  ],
-      '쉐보레': [
+      "쉐보레": [
 	  'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B200-0012.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B210-0011.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B210-0014.jpg',
@@ -51,14 +51,14 @@
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B751-0P14.jpg'
 
 	  ],
-      '르노': [
+      "르노": [
 	  'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B400-0009.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B410-0011.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B420-0016.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B760-0011.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B800-0010.jpg'
 	  ],
-	  'KGM': [
+	  "KGM": [
 	  'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SS/B200-0013.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SS/B210-0010.jpg',
 'https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SS/B210-0011.jpg',
