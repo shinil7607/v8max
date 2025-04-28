@@ -1,7 +1,9 @@
 {
   "menu1": {
-    "국산 전면": ["S100", "그외", "HU 리필"],
-    "국산 후면": ["현대", "기아", "쉐보레", "르노", "KGM"]
+    "<img src="https://autoimg.danawa.com/photo/brand/303_90.png" alt="현대" class="logo" style="width: 10px;">
+      <span class="name">현대</span>": ["S100", "그외", "HU 리필"],
+    "<img src="https://autoimg.danawa.com/photo/brand/307_90.png" alt="기아" class="logo" style="width: 10px;">
+      <span class="name">기아</span>": ["현대", "기아", "쉐보레", "르노", "KGM"]
   },
   "menu2": {
     "수입 전면": ["세부 메뉴 2-1-1", "세부 메뉴 2-1-2"],
