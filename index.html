@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>3단 조건 메뉴 - 이미지 인쇄 (Select 방식)</title>
+<style>
+.label_print {
+text-align: center; 
+margin: 0px auto; 
+align-content: center; 
+padding-top: 0px; 
+max-width: 1000px;}
+
+.image-container {
+border: 1px solid #ccc;
+}
+
+.select-menu select {
+width: 250px;
+height: 50px;
+  appearance: none; /* 브라우저 기본 스타일 제거 (화살표 등) */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+.select-menu select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+  .image-container { margin-top: 20px; }
+  .image-container img { width: 150px; height:; margin-right: 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+<div class="label_print">
+<h1> 라벨 프린터 </h1>
+<div class="select-menu">
+<select id="menu-level1">
+  <option value="">선택</option>
+  <option value="menu1">국산차</option>
+  <option value="menu2">수입차</option>
+  <option value="menu3">일본차</option>
+  <option value="menu4">리필고무</option>
+</select>
+
+<select id="menu-level2" style="">
+  <option value="">선택</option>
+</select>
+
+<select id="menu-level3" style="">
+  <option value="">선택</option>
+</select>
+
+<div class="image-container">
+</div>
+
+</div>
+</div>
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', async function() {
+    const menuLevel1 = document.getElementById('menu-level1');
+    const menuLevel2 = document.getElementById('menu-level2');
+    const menuLevel3 = document.getElementById('menu-level3');
+    const imageContainer = document.querySelector('.image-container');
+
+    // External URLs for menu data and image mapping
+    const menuDataUrl = '../menuData.json'; // Replace with actual URL
+    const imageMappingUrl = '../imageMapping.json'; // Replace with actual URL
+
+    let menuData = {};
+    let imageMapping = {};
+
+    // Fetch menu data and image mapping
+    try {
+      const [menuResponse, imageResponse] = await Promise.all([
+        fetch(menuDataUrl),
+        fetch(imageMappingUrl)
+      ]);
+
+      if (!menuResponse.ok || !imageResponse.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      menuData = await menuResponse.json();
+      imageMapping = await imageResponse.json();
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      imageContainer.innerHTML = '<p>데이터를 불러오는 중 오류가 발생했습니다.</p>';
+      return;
+    }
+
+    // 레벨 1 메뉴 변경 이벤트 처리
+    menuLevel1.addEventListener('change', function() {
+      const selectedMenu1 = this.value;
+      menuLevel2.innerHTML = '<option value="">선택</option>';
+      menuLevel3.innerHTML = '<option value="">세부 선택</option>';
+      menuLevel3.style.display = '';
+      imageContainer.innerHTML = '';
+
+      if (selectedMenu1 && menuData[selectedMenu1]) {
+        for (const submenu in menuData[selectedMenu1]) {
+          const option = document.createElement('option');
+          option.value = submenu;
+          option.textContent = submenu;
+          menuLevel2.appendChild(option);
+        }
+        menuLevel2.style.display = 'inline-block';
+      } else {
+        menuLevel2.style.display = '';
+      }
+    });
+
+    // 레벨 2 메뉴 변경 이벤트 처리
+    menuLevel2.addEventListener('change', function() {
+      const selectedMenu1 = menuLevel1.value;
+      const selectedMenu2 = this.value;
+      menuLevel3.innerHTML = '<option value="">세부 선택</option>';
+      imageContainer.innerHTML = '';
+
+      if (selectedMenu1 && selectedMenu2 && menuData[selectedMenu1][selectedMenu2]) {
+        menuData[selectedMenu1][selectedMenu2].forEach(detailMenu => {
+          const option = document.createElement('option');
+          option.value = detailMenu;
+          option.textContent = detailMenu;
+          menuLevel3.appendChild(option);
+        });
+        menuLevel3.style.display = 'inline-block';
+      } else {
+        menuLevel3.style.display = '';
+      }
+    });
+
+    // 레벨 3 메뉴 변경 이벤트 처리 (이미지 표시)
+    menuLevel3.addEventListener('change', function() {
+      const selectedDetailMenu = this.value;
+      imageContainer.innerHTML = '';
+
+      if (selectedDetailMenu && imageMapping[selectedDetailMenu]) {
+        imageMapping[selectedDetailMenu].forEach(imageSrc => {
+          const img = document.createElement('img');
+          img.src = imageSrc;
+          img.alt = imageSrc;
+          img.addEventListener('click', printImage);
+          imageContainer.appendChild(img);
+        });
+      }
+    });
+
+    // 이미지를 인쇄하는 함수
+    function printImage(event) {
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write('<html><head><title>인쇄</title></head><body>');
+      printWindow.document.write(`<img src="${event.target.src}" style="max-width: 30%; height: auto;">`);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+      printWindow.print();
+    }
+  });
+</script>
+
+</body>
+</html>
