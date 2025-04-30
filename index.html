@@ -2,23 +2,23 @@
 <html>
 <head>
 <title>3단 조건 메뉴 - 이미지 인쇄 (Select 방식)</title>
-  <meta charset="utf-8">
 <style>
 .label_print {
-text-align: center; 
-margin: 0px auto; 
-align-content: center; 
-padding-top: 0px; 
-max-width: 1200px;}
+  text-align: center; 
+  margin: 0px auto; 
+  align-content: center; 
+  padding-top: 0px; 
+  max-width: 1200px;
+}
 
 .image-container {
-border: 1px solid #ccc;
+  border: 1px solid #ccc;
 }
 
 .select-menu select {
-width: 250px;
-height: 50px;
-  appearance: none; /* 브라우저 기본 스타일 제거 (화살표 등) */
+  width: 250px;
+  height: 50px;
+  appearance: none;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -32,35 +32,47 @@ height: 50px;
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-  .image-container { margin-top: 20px; }
-  .image-container img { width: 180px; height:; margin-right: 10px; cursor: pointer; border: 1px solid #ccc;}
+
+.image-container { 
+  margin-top: 20px; 
+}
+
+.image-container img { 
+  width: 180px; 
+  margin-right: 10px; 
+  cursor: pointer; 
+  border: 1px solid #ccc;
+ 
+}
+
+
 </style>
 </head>
 <body>
 <div class="label_print">
-<h1> 라벨 프린터 </h1>
-<div class="select-menu">
-<select id="menu-level1">
-  <option value="">선택</option>
-  <option value="menu1">국산차</option>
-  <option value="menu2">수입차</option>
-  <option value="menu3">일본차</option>
-  <option value="menu4">리필고무</option>
-</select>
+  <h1>라벨 프린터</h1>
+  <div class="select-menu">
+    <select id="menu-level1">
+      <option value="">선택</option>
+      <option value="menu1">국산차</option>
+      <option value="menu2">수입차</option>
+      <option value="menu3">일본차</option>
+      <option value="menu4">리필고무</option>
+    </select>
 
-<select id="menu-level2" style="">
-  <option value="">선택</option>
-</select>
+    <select id="menu-level2">
+      <option value="">선택</option>
+    </select>
 
-<select id="menu-level3" style="">
-  <option value="">선택</option>
-</select>
+    <select id="menu-level3">
+      <option value="">선택</option>
+    </select>
 
-<div class="image-container">
+    <div class="image-container">
+    </div>
+  </div>
 </div>
 
-</div>
-</div>
 
 
 
@@ -81,8 +93,8 @@ document.addEventListener('DOMContentLoaded', function() {
   ]).then(([menuResult, imageResult]) => {
     menuData = menuResult;
     imageMapping = imageResult;
-    console.log('Menu Data:', menuData);  // 메뉴 데이터 출력
-    console.log('Image Mapping:', imageMapping);  // 이미지 맵핑 데이터 출력
+    console.log('Menu Data:', menuData);
+    console.log('Image Mapping:', imageMapping);
   }).catch(error => {
     console.error('데이터 로딩 실패:', error);
   });
@@ -133,27 +145,192 @@ document.addEventListener('DOMContentLoaded', function() {
     imageContainer.innerHTML = '';
 
     if (selectedDetailMenu && imageMapping[selectedDetailMenu]) {
-      imageMapping[selectedDetailMenu].forEach(imageSrc => {
-        const img = document.createElement('img');
-        img.src = imageSrc;
-        img.alt = imageSrc;
-        img.addEventListener('click', printImage);
-        imageContainer.appendChild(img);
-      });
+      console.log('선택된 메뉴에 대한 이미지:', imageMapping[selectedDetailMenu]); // 이미지 확인
+
+      if (Array.isArray(imageMapping[selectedDetailMenu])) {
+        imageMapping[selectedDetailMenu].forEach(imageData => {
+          if (typeof imageData === 'object' && imageData.url) {
+            const img = document.createElement('img');
+            img.src = imageData.url;   // url 사용
+            img.alt = imageData.url;
+            img.dataset.layout = imageData.layout || "A"; // layout 저장
+            img.addEventListener('click', function() {
+              printImage(img); // 클릭 시 printImage 호출
+            });
+            imageContainer.appendChild(img);
+          } else {
+            console.error('이미지 데이터 형식이 잘못되었습니다:', imageData);
+          }
+        });
+      }
     }
   });
 
-  // 인쇄 함수
-  function printImage(event) {
+  // ===> 인쇄 함수는 밖에! (forEach 안 말고)
+  function printImage(popupImg) {
+    const layout = popupImg.dataset.layout || "A"; // 클릭한 이미지의 레이아웃 가져옴
     const printWindow = window.open('', '_blank');
-    printWindow.document.write('<html><head><title>인쇄</title></head><body>');
-    printWindow.document.write(`<img src="${event.target.src}" style="max-width: 30%; height: auto;">`);
-    printWindow.document.write('</body></html>');
-    printWindow.document.close();
-    printWindow.print();
-  }
-});
+    let style = `
+      <style>
+        @page {
+      size: A4 portrait;
+      margin: 0;
+    }
 
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .label-sheet {
+      width: 195.5mm;
+      height: 270mm; /* 297 - 10(top) - 17(bottom) */
+      display: grid;
+      grid-template-columns: repeat(3, 63.5mm);
+      grid-template-rows: repeat(6, 45mm);
+      column-gap: 2.5mm;
+      row-gap: 0mm;
+      margin: 10mm 7.5mm 17mm 7mm; /* top right bottom left */
+      box-sizing: border-box;
+    }
+
+    .label {
+      width: 63.5mm;
+      height: 45mm;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .label img {
+      width: 45mm;
+      height: 63.5mm;
+      object-fit: cover;
+      transform: rotate(90deg);
+      transform-origin: center center;
+    }
+	
+	.print-btn {
+  position: fixed; 
+  top: 10px; 
+  right: 10px;
+  padding: 10px 20px; 
+  font-size: 16px;
+  background-color: #007bff; 
+  color: white;
+  border: none; 
+  border-radius: 5px;
+  cursor: pointer; 
+  z-index: 9999;
+}
+	    @media print {
+      .print-btn {
+        display: none;
+      }
+	
+      </style>
+    `;
+
+    let content = '';
+
+    if (layout === "A") {
+      content = `
+        
+		    <div class="image-container">
+          <img src="${popupImg.src}" alt="">
+        </div>
+      `;
+    } else if (layout === "B") {
+      content = `
+
+  <div class="label-sheet">
+    <!-- 아래 블록을 18번 반복하세요 -->
+    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+	    <div class="label">
+      <img src="https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg" alt="Label">
+    </div>
+    <!-- 반복 -->
+  </div>
+
+        
+      `;
+    } else if (layout === "C") {
+      content = `
+        <div class="image-container">
+		<div style="margin:0;padding:0;">
+          <img src="${popupImg.src}" style="width:100vw; height:100vh; object-fit:contain;">
+        </div></div>
+      `;
+    } else {
+      content = `<img src="${popupImg.src}" style="width:100%;">`;
+    }
+
+    printWindow.document.write(`
+      <html>
+      <head><title>미리보기</title>${style}</head>
+      <body>
+        <button class="print-btn" onclick="window.print()">인쇄</button>
+		<div class="image-container">
+        ${content}
+		</div>
+      </body>
+      </html>
+    `);
+    printWindow.document.close();
+  }
+
+});
 </script>
 
 
