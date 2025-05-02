@@ -1,5 +1,5 @@
 {
-  "현대후면": [
+  "현대 후면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B100-0011.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0012.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B120-0014.jpg", "layout": "CL836" },
@@ -18,7 +18,7 @@
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B751-0016.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/HD/B840-0012.jpg", "layout": "CL836" }
   ],
-  "기아후면": [
+  "기아 후면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B100-0011.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B120-0012.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B120-0014.jpg", "layout": "CL836" },
@@ -34,7 +34,7 @@
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B840-0010.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/KN/B840-0012.jpg", "layout": "CL836" }
   ],
-  "쉐보레후면": [
+  "쉐보레 후면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B200-0012.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B210-0011.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B210-0014.jpg", "layout": "CL836" },
@@ -50,14 +50,14 @@
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B751-0D16.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/CH/B751-0P14.jpg", "layout": "CL836" }
   ],
-  "르노후면": [
+  "르노 후면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B400-0009.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B410-0011.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B420-0016.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B760-0011.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SM/B800-0010.jpg", "layout": "CL836" }
   ],
-  "KGM후면": [
+  "KGM 후면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SS/B200-0013.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SS/B210-0010.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SS/B210-0011.jpg", "layout": "CL836" },
@@ -67,15 +67,21 @@
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SS/B751-0012.jpg", "layout": "CL836" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/B/SS/B751-0014.jpg", "layout": "CL836" }
   ],
-  "현대전면": [
+  "현대 전면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S510-2420.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S590-2418.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S590-2420.jpg", "layout": "CL426" }
   ],
-  "기아전면": [
+  "기아 전면": [
     {}
   ],
-  "쉐보레전면": [
+    "제네 전면": [
+    {}
+  ],
+    "제네 후면": [
+    {}
+  ],
+  "쉐보레 전면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S510-2615.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S550-2616.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S590-2416.jpg", "layout": "CL426" },
@@ -88,7 +94,7 @@
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S751-1600.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S100-2016.jpg", "layout": "CL516" }
   ],
-  "르노전면": [
+  "르노 전면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S100-SG20.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S200-2617.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S510-2419.jpg", "layout": "CL426" },
@@ -99,12 +105,12 @@
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S631-2614.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S790-2615.jpg", "layout": "CL426" }
   ],
-  "KGM전면": [
+  "KGM 전면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S100-SG24.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S491-2620.jpg", "layout": "CL426" },
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S592-2422.jpg", "layout": "CL426" }
   ],
-    "HU전면": [
+    "HU 전면": [
     { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S100-2016.jpg", "layout": "CL516" },
 { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S100-2018.jpg", "layout": "CL516" },
 { "url": "https://gi.esmplus.com/shinil7607/WIP/COM/Label/KR/F/S100-2020.jpg", "layout": "CL516" },
