@@ -1,17 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<title>라벨 트린트이</title>
+<title>라벨 프린트</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes">
 <style>
 .label_print {
   text-align: center; 
-  margin: 0px auto; 
+  border-bottom: 1px solid #ccc;
   align-content: center; 
   padding-top: 0px; 
-  max-width: 1200px;
-}
-
-.image-container {
+  max-width: 1900px;
 }
 
 .select-menu select {
@@ -32,13 +34,14 @@
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
-.image-container { 
-  margin-top: 15px; 
-  padding:10px 10px 10px 10px;
+.image-container {
+text-align: center;
+align-content: center;
+padding:10px 10px 10px 10px;
 }
 
 .image-container img { 
-  width: 190px; 
+  width: 210px; 
   margin-right: 15px; 
   margin-top: 10px;
   cursor: pointer; 
@@ -63,11 +66,11 @@
     </select>
 
     <select id="menu-level2">
-      <option value="">선택</option>
+      <option value="">-----</option>
     </select>
 
     <select id="menu-level3">
-      <option value="">선택</option>
+      <option value="">-----</option>
     </select>
 
     <div class="image-container">
@@ -104,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // 메뉴 레벨1 변경 이벤트
   menuLevel1.addEventListener('change', function() {
     const selectedMenu1 = this.value;
-    menuLevel2.innerHTML = '<option value="">선택</option>';
+    menuLevel2.innerHTML = '<option value="">브랜드 선택</option>';
     menuLevel3.innerHTML = '<option value="">세부 선택</option>';
     imageContainer.innerHTML = '';
 
@@ -170,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ===> 인쇄 함수는 밖에! (forEach 안 말고)
   function printImage(popupImg) {
-    const layout = popupImg.dataset.layout || "A"; // 클릭한 이미지의 레이아웃 가져옴
+    const layout = popupImg.dataset.layout || "CL426"; // 클릭한 이미지의 레이아웃 가져옴
     const printWindow = window.open('', '_blank');
     let style = `
       <style>
@@ -188,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
       width: 189.6mm;
       height: 258.3mm; /* 297 - 14.5(top) - 24.2(bottom) */
       display: grid;
-      grid-template-columns: repeat(1, 189.6mm);
+      grid-template-columns: 189.6mm;
       grid-template-rows: repeat(6, 43.05mm);
       row-gap: 0mm;
       margin: 14.5mm 10.4mm 24.2mm 10mm; /* top right bottom left */
@@ -274,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	.print-btn {
   position: fixed; 
   top: 10px; 
-  right: 10px;
+  right: 80%;
   padding: 10px 30px; 
   font-size: 16px;
   background-color: #007bff; 
@@ -294,7 +297,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let content = '';
 
-    if (layout === "A") {
+    if (layout === "CL426") {
       content = `
         
   <div class="label-sheet_426">
@@ -403,7 +406,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         
       `;
-    } else if (layout === "C") {
+    } else if (layout === "CL516") {
       content = `
 
  <div class="label-sheet_516">
